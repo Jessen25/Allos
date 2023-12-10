@@ -1,18 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+<!--Header-->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:layout_margin="40dp"
+        android:gravity="center_vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--Icon-->
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/user_icon"/>
+
+<!--Nama sama email-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="100dp"
+                android:text="Hello, Alex"
+                android:textSize="24sp"
+                android:textColor="#2D0C57"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColor="#504F5E"
+                android:text="&#64;alexkeinn" />
+
+        </LinearLayout>
+
+<!--Exit button-->
+        <ImageView
+            android:id="@+id/exitButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/exit_button"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+<!--Content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:orientation="vertical">
+
+<!--Account-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#2D0C57"
+            android:text="Account"/>
+
+<!--        Edit Profile-->
+            <LinearLayout
+                android:id="@+id/editProfileButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:background="@drawable/click_animation">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9586A8"
+                    android:layout_weight="1"
+                    android:text="Edit Profile"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+<!--        Help-->
+            <LinearLayout
+                android:id="@+id/helpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9586A8"
+                    android:layout_weight="1"
+                    android:text="Help"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+<!--General-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#2D0C57"
+            android:text="General"/>
+
+<!--        Privacy and Policy-->
+            <LinearLayout
+                android:id="@+id/privacyPolicyButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9586A8"
+                    android:layout_weight="1"
+                    android:text="Privacy &amp; Policy"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+<!--        Term of Service-->
+            <LinearLayout
+                android:id="@+id/termOfServiceButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9586A8"
+                    android:layout_weight="1"
+                    android:text="Term of Service"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+<!--        Rate App-->
+            <LinearLayout
+                android:id="@+id/rateAppButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9586A8"
+                    android:layout_weight="1"
+                    android:text="Rate App"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/arrow"/>
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
