@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterPage1"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="300px"
+        android:layout_height="200px"
+        android:text="allos."
+        android:textSize="90px"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backdrop_base"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="200px"
+            android:gravity="center"
+            android:text="Register"
+            android:textColor="#2D0C57"
+            android:textSize="90px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Allos! Please complete the registration and dive in to a world of allergy free"
+            android:textAlignment="center"
+            android:textSize="45px"
+            android:textColor="#9586A8"/>
+
+        <ScrollView
+            android:layout_width="500px"
+            android:layout_height="900px"
+            android:layout_margin="50px">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DBD8DD"
+                    android:text="Milk" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DBD8DD"
+                    android:text="Fish" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Peanut" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DBD8DD"
+                    android:text="Soybean" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Shellfish" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DBD8DD"
+                    android:text="Wheat" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sesame" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DBD8DD"
+                    android:text="Tree Nut" />
+            </LinearLayout>
+        </ScrollView>
+
+
+        <Button
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_margin="50px"
+            android:backgroundTint="#0BCE83"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Login Here"
+            android:textSize="50px" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
