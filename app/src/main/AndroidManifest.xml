@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Allos"
         tools:targetApi="31">
         <activity
+            android:name=".RatePage"
+            android:exported="false" />
+        <activity
+            android:name=".TermPage"
+            android:exported="false" />
+        <activity
+            android:name=".PrivacyPage"
+            android:exported="false" />
+        <activity
+            android:name=".HelpPage"
+            android:exported="false" />
+        <activity
             android:name=".HomePage"
             android:exported="false" />
         <activity

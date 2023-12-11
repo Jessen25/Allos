@@ -57,16 +57,20 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             startActivity(profileIntent);
         }
         if(view == helpButton){
-            Toast.makeText(this, "help", Toast.LENGTH_SHORT).show();
+            Intent helpIntent = new Intent(this, HelpPage.class);
+            startActivity(helpIntent);
         }
         if(view == privacyPolicyButton){
-            Toast.makeText(this, "privacy", Toast.LENGTH_SHORT).show();
+            Intent privacyIntent = new Intent(this, PrivacyPage.class);
+            startActivity(privacyIntent);
         }
         if(view == termOfServiceButton){
-            Toast.makeText(this, "term", Toast.LENGTH_SHORT).show();
+            Intent termIntent = new Intent(this, TermPage.class);
+            startActivity(termIntent);
         }
         if(view == rateAppButton){
-            Toast.makeText(this, "rate", Toast.LENGTH_SHORT).show();
+            Intent rateIntent = new Intent(this, RatePage.class);
+            startActivity(rateIntent);
         }
         if(view == homeButton){
             Intent homeIntent = new Intent(this, HomePage.class);
