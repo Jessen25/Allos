@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfilePage extends AppCompatActivity implements View.OnClickListener{
 
     ImageView exitButton;
     LinearLayout editProfileButton;
@@ -17,11 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout privacyPolicyButton;
     LinearLayout termOfServiceButton;
     LinearLayout rateAppButton;
+    ImageView homeButton;
+    ImageView scanButton;
+    ImageView profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile_page);
 
         exitButton = findViewById(R.id.exitButton);
         editProfileButton = findViewById(R.id.editProfileButton);
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         privacyPolicyButton = findViewById(R.id.privacyPolicyButton);
         termOfServiceButton = findViewById(R.id.termOfServiceButton);
         rateAppButton = findViewById(R.id.rateAppButton);
+        homeButton = findViewById(R.id.homeButton);
+        scanButton = findViewById(R.id.scanButton);
+        profileButton = findViewById(R.id.profileButton);
 
         exitButton.setOnClickListener(this);
         editProfileButton.setOnClickListener(this);
@@ -36,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         privacyPolicyButton.setOnClickListener(this);
         termOfServiceButton.setOnClickListener(this);
         rateAppButton.setOnClickListener(this);
-
+        homeButton.setOnClickListener(this);
+        scanButton.setOnClickListener(this);
+        profileButton.setOnClickListener(this);
 
     }
     @Override
@@ -60,5 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == rateAppButton){
             Toast.makeText(this, "rate", Toast.LENGTH_SHORT).show();
         }
+        if(view == homeButton){
+            Intent homeIntent = new Intent(this, HomePage.class);
+            startActivity(homeIntent);
+        }
+//        if(view == scanButton){
+//            Intent homeIntent = new Intent(this, HomePage.class);
+//        }
+//        if(view == homeButton){
+//            Intent homeIntent = new Intent(this, HomePage.class);
+//        }
     }
 }
