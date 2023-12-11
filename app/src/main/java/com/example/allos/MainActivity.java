@@ -2,6 +2,7 @@ package com.example.allos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,15 +36,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         privacyPolicyButton.setOnClickListener(this);
         termOfServiceButton.setOnClickListener(this);
         rateAppButton.setOnClickListener(this);
-    }
 
+
+    }
     @Override
     public void onClick(View view) {
         if(view == exitButton){
             Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
         }
         if(view == editProfileButton){
-            Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show();
+            Intent profileIntent = new Intent(this, EditProfile.class);
+            startActivity(profileIntent);
         }
         if(view == helpButton){
             Toast.makeText(this, "help", Toast.LENGTH_SHORT).show();
