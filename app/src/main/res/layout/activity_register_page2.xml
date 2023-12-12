@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterPage1"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="300px"
+        android:layout_height="200px"
+        android:text="allos."
+        android:textSize="90px"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backdrop_base"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="200px"
+                android:gravity="center"
+                android:text="Register"
+                android:textColor="#2D0C57"
+                android:textSize="90px"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Allos! Please complete the registration and dive in to a world of allergy free"
+            android:textAlignment="center"
+            android:textSize="45px"
+            android:textColor="#9586A8"
+            android:layout_marginBottom="100px"/>
+
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_marginBottom="20px"/>
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="800px"
+            android:layout_height="100px"
+            android:background="#DBD8DD"
+            android:layout_marginBottom="100px" />
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:layout_marginBottom="20px"/>
+        <EditText
+            android:id="@+id/usernameEdit"
+            android:layout_width="800px"
+            android:layout_height="100px"
+            android:background="#DBD8DD"
+            android:layout_marginBottom="100px"/>
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginBottom="20px"/>
+        <EditText
+            android:id="@+id/emailEdit"
+            android:layout_width="800px"
+            android:layout_height="100px"
+            android:background="#DBD8DD"
+            android:layout_marginBottom="100px"/>
+
+        <TextView
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:layout_marginBottom="20px"/>
+        <EditText
+            android:id="@+id/passwordEdit"
+            android:layout_width="800px"
+            android:layout_height="100px"
+            android:background="#DBD8DD"
+            android:layout_marginBottom="100px"
+            android:isCredential="true"/>
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_margin="50px"
+            android:backgroundTint="#0BCE83"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
