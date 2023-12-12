@@ -1,13 +1,18 @@
 package com.example.allos;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class ProfilePage extends AppCompatActivity implements View.OnClickListener{
 
@@ -76,11 +81,53 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             Intent homeIntent = new Intent(this, HomePage.class);
             startActivity(homeIntent);
         }
-//        if(view == scanButton){
-//            Intent homeIntent = new Intent(this, HomePage.class);
-//        }
+        if(view == scanButton){
+            Intent homeIntent = new Intent(this, ScanPage.class);
+            startActivity(homeIntent);
+        }
 //        if(view == homeButton){
 //            Intent homeIntent = new Intent(this, HomePage.class);
 //        }
     }
+
+    private void scanCode(){
+
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setCaptureActivity(ScanPage.class);
+        integrator.setOrientationLocked(false);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scanning Code");
+        integrator.initiateScan();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(result != null){
+            if(result.getContents() != null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(result.getContents());
+                builder.setTitle("Scanning Result");
+                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        scanCode();
+                    }
+                }).setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+            else{
+                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
+
