@@ -52,19 +52,33 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ListView
+        android:id="@+id/itemListView"
+        android:layout_width="324dp"
+        android:layout_height="590dp"
+        android:divider="#EFE2FF"
+        android:dividerHeight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView2"
+        app:layout_constraintVertical_bias="0.522" />
+
     <SearchView
+        android:id="@+id/searchView2"
         android:layout_width="329dp"
         android:layout_height="34dp"
-        android:iconifiedByDefault="false"
         android:layout_marginTop="2dp"
         android:background="@drawable/searchfield"
+        android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
+        android:queryHint="Search for a food"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.034"
-        android:queryHint="Search for a food" />
+        app:layout_constraintVertical_bias="0.034" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
