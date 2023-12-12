@@ -105,6 +105,7 @@
 
 
         <Button
+            android:id="@+id/registerButton"
             android:layout_width="700px"
             android:layout_height="wrap_content"
             android:text="Register"
