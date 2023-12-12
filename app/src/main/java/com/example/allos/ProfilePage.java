@@ -82,12 +82,14 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             startActivity(homeIntent);
         }
         if(view == scanButton){
-            Intent homeIntent = new Intent(this, ScanPage.class);
-            startActivity(homeIntent);
+//            Intent homeIntent = new Intent(this, ScanPage.class);
+//            startActivity(homeIntent);
+            scanCode();
         }
-//        if(view == homeButton){
-//            Intent homeIntent = new Intent(this, HomePage.class);
-//        }
+        if(view == profileButton){
+            Intent profileIntent = new Intent(this, ProfilePage.class);
+            startActivity(profileIntent);
+        }
     }
 
     private void scanCode(){

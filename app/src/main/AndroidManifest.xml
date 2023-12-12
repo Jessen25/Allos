@@ -41,7 +41,8 @@
             android:exported="false" />
         <activity
             android:name=".HomePage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".EditProfile"
             android:exported="false" />
