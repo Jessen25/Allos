@@ -94,12 +94,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         // Assuming each child node represents an item in the list
-                        String barcodeId = dataSnapshot.getKey();
-                        String ProductImage = String.valueOf(dataSnapshot.child("ProductImage").getValue());
-                        String ProductName = String.valueOf(dataSnapshot.child("ProductName").getValue());
-                        boolean itemStatus = (boolean) dataSnapshot.child("ProductAllowed").getValue();
+                        String barcodeId = String.valueOf(dataSnapshot.child("BarcodeID").getValue());
+                        String ProductImage = String.valueOf(dataSnapshot.child("Image").getValue());
+                        String ProductName = String.valueOf(dataSnapshot.child("Name").getValue());
+                        boolean itemStatus = (boolean) dataSnapshot.child("IsSafe").getValue();
 
-                        Items item = new Items(ProductImage, ProductName, itemStatus);
+                        Items item = new Items("image_not_found", ProductName, itemStatus);
                         itemList.add(item);
                     }
 
