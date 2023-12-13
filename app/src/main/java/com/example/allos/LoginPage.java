@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     EditText userEdit, passEdit;
     DatabaseReference database;
 
+    TextView registerText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +38,10 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         loginButton = findViewById(R.id.loginButton);
         userEdit = findViewById(R.id.usernameEdit);
         passEdit = findViewById(R.id.passEdit);
+        registerText = findViewById(R.id.registerText);
 
         loginButton.setOnClickListener(this);
+        registerText.setOnClickListener(this);
 
     }
 
@@ -52,8 +57,11 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             }else{
                 Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
+        }
 
-
+        if (v == registerText){
+            Intent registerIntent = new Intent(this, RegisterPage1.class);
+            startActivity(registerIntent);
         }
     }
 
@@ -69,6 +77,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                         Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent homeIntent = new Intent(LoginPage.this, HomePage.class);
                         homeIntent.putExtra("username", username);
+                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(homeIntent);
                     } else {
                         Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
