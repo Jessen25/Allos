@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+//import com.google.zxing.integration.android.IntentIntegrator;
+//import com.google.zxing.integration.android.IntentResult;
 
 public class ProfilePage extends AppCompatActivity implements View.OnClickListener{
 
@@ -59,7 +59,9 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if(view == exitButton){
-            Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
+            Intent loginIntent = new Intent(this, LoginPage.class);
+            startActivity(loginIntent);
         }
         if(view == editProfileButton){
             Intent profileIntent = new Intent(this, EditProfile.class);

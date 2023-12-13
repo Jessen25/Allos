@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1080516660297",
+    "project_id": "allos-project",
+    "storage_bucket": "allos-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080516660297:android:c7cbf9ed92e839f28d8398",
+        "android_client_info": {
+          "package_name": "com.example.allos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVWFMiE6Jc0POzW5xwnk1qEJO5XAj1xDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

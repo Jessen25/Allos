@@ -28,7 +28,7 @@ public class RegisterPage1 extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if(v == registerButton){
             Intent nextRegPage = new Intent(this, RegisterPage2.class);
-            //nextRegPage.putStringArrayListExtra("allergens", )
+//            nextRegPage.putStringArrayListExtra("allergens", )
             startActivity(nextRegPage);
         }
     }

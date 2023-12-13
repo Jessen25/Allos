@@ -12,8 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+//import com.google.zxing.integration.android.IntentIntegrator;
+//import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
