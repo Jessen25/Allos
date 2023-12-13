@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.allos.controllers.ScanController;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     ImageView profileButton;
     TextView profileText;
     TextView emailText;
+
+    ScanController scanController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         homeButton.setOnClickListener(this);
         scanButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
+
+        scanController = new ScanController();
 
         currentUser = getIntent().getStringExtra("username").toString();
 
@@ -119,9 +124,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             startActivity(homeIntent);
         }
         if(view == scanButton){
-//            Intent homeIntent = new Intent(this, ScanPage.class);
-//            startActivity(homeIntent);
-            scanCode();
+            scanController.scanCode(this);
         }
         if(view == profileButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
@@ -129,15 +132,15 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    private void scanCode(){
-
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(ScanPage.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
-        integrator.initiateScan();
-    }
+//    private void scanCode(){
+//
+//        IntentIntegrator integrator = new IntentIntegrator(this);
+//        integrator.setCaptureActivity(ScanPage.class);
+//        integrator.setOrientationLocked(false);
+//        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+//        integrator.setPrompt("Scanning Code");
+//        integrator.initiateScan();
+//    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
@@ -149,14 +152,16 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
                 builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        scanCode();
-                    }
-                }).setNegativeButton("Finish", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
+
+                        scanController.scanCode(ProfilePage.this);
                     }
                 });
+//                        setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        finish();
+//                    }
+//                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

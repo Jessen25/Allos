@@ -18,8 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//import com.google.zxing.integration.android.IntentIntegrator;
-//import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         itemList.add(new Items("bengbeng","Beng-Beng",true));
         itemList.add(new Items("piattos","Piattos",false));
 
-        readData();
+//        readData();
 
         itemListView = findViewById(R.id.itemListView);
 
@@ -76,11 +76,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 //            startActivity(homeIntent);
             scanController.scanCode(this);
 
-            int requestCode = Integer.parseInt(null);
-            int resultCode = Integer.parseInt(null);
-            Intent data = null;
-            scanController.onActivityResult
-                    (requestCode, resultCode, data, this, this);
+//            int requestCode = Integer.parseInt(null);
+//            int resultCode = Integer.parseInt(null);
+//            Intent data = null;
+//            scanController.onActivityResult
+//                    (requestCode, resultCode, data, this, this);
         }
 
         if(view == profileButton){
@@ -125,33 +125,35 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     }
 
     // jgn dihapus dulu in case error
-//    public void onActivityResult(int requestCode, int resultCode, Intent data){
-//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-//        if(result != null){
-//            if(result.getContents() != null){
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setMessage(result.getContents());
-//                builder.setTitle("Scanning Result");
-//                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(result != null){
+            if(result.getContents() != null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(result.getContents());
+                builder.setTitle("Scanning Result");
+                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        scanController.scanCode(HomePage.this);
+                    }
+                });
+//                        setNegativeButton("Finish", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-//                        scanController.scanCode(HomePage.this);
-//                    }
-//                }).setNegativeButton("Finish", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
+//                        // do an intent back to home page
 //                        finish();
 //                    }
 //                });
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//            }
-//            else{
-//                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//        else{
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+            else{
+                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

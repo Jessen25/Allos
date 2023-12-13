@@ -52,6 +52,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             }else{
                 Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
+
+
         }
     }
 

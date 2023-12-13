@@ -23,34 +23,4 @@ public class ScanController {
         integrator.setPrompt("Scanning Product's Barcode");
         integrator.initiateScan();
     }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data, Activity activity, Activity sourceActivity){
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(result != null){
-            if(result.getContents() != null){
-                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanCode(sourceActivity);
-                    }
-                }).setNegativeButton("Finish", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        activity.finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-            else{
-                Toast.makeText(activity, "No Results", Toast.LENGTH_LONG).show();
-            }
-        }
-        else{
-            onActivityResult(requestCode, resultCode, data, activity, sourceActivity);
-        }
-    }
 }
