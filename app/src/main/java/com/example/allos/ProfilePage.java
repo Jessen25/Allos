@@ -55,7 +55,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if(view == exitButton){
-            Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
+            Intent loginIntent = new Intent(this, LoginPage.class);
+            startActivity(loginIntent);
         }
         if(view == editProfileButton){
             Intent profileIntent = new Intent(this, EditProfile.class);
