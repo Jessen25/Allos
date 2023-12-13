@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -42,34 +43,41 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v == loginButton){
-//            String username = userEdit.getText().toString();
-//            if(!username.isEmpty()){
-//                readData(username);
-//            }else{
-//                passEdit.setText("Fail");
-//            }
+            // TODO: 13/12/2023 bikin controller check user login contoh if empty dan lain lain;
+            String username = userEdit.getText().toString();
+            String password = passEdit.getText().toString();
 
-            database = FirebaseDatabase.getInstance().getReference("anjing");
-            database.setValue("Testing4");
+            if(!username.isEmpty() && !password.isEmpty()){
+                readData(username, password);
+            }else{
+                passEdit.setText("Fail");
+            }
         }
     }
 
-    private void readData(String username){
+    private void readData(String username, String password){
 
         database = FirebaseDatabase.getInstance().getReference("User");
         database.child(username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String firstname = String.valueOf(snapshot.child("UserName").getValue());
-                    passEdit.setText(firstname);
+                    String databasePass = String.valueOf(snapshot.child("UserPassword").getValue());
+                    if (databasePass.equals(password)){
+                        // TODO: passing intent dengan parameter usernya
+                        Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
+                    Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
                     passEdit.setText("user doesnt exist");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 passEdit.setText("failed");
+                Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
