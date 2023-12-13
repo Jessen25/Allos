@@ -96,6 +96,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         if(view == exitButton){
             Intent loginIntent = new Intent(this, LoginPage.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(loginIntent);
         }
         if(view == editProfileButton){

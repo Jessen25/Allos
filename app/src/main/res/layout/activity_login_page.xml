@@ -57,7 +57,8 @@
             android:layout_width="800px"
             android:layout_height="100px"
             android:background="#DBD8DD"
-            android:layout_marginBottom="100px" />
+            android:layout_marginBottom="100px"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/loginButton"
