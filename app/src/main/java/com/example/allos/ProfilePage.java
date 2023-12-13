@@ -1,5 +1,6 @@
 package com.example.allos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,13 +10,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class ProfilePage extends AppCompatActivity implements View.OnClickListener{
 
+    String currentUser;
     ImageView exitButton;
     LinearLayout editProfileButton;
     LinearLayout helpButton;
@@ -25,6 +33,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
     ImageView homeButton;
     ImageView scanButton;
     ImageView profileButton;
+    TextView profileText;
+    TextView emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         homeButton = findViewById(R.id.homeButton);
         scanButton = findViewById(R.id.scanButton);
         profileButton = findViewById(R.id.profileButton);
+        profileText = findViewById(R.id.profileText);
+        emailText= findViewById(R.id.emailText);
 
         exitButton.setOnClickListener(this);
         editProfileButton.setOnClickListener(this);
@@ -51,7 +63,30 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         scanButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
 
+        currentUser = getIntent().getStringExtra("username").toString();
+
+        setProfile();
+
     }
+
+    private void setProfile() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("User");
+        database.child(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    profileText.setText("Hello, " + snapshot.child("Name").getValue().toString());
+                    emailText.setText("@" + snapshot.child("Username").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         if(view == exitButton){
@@ -60,6 +95,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         if(view == editProfileButton){
             Intent profileIntent = new Intent(this, EditProfile.class);
+            profileIntent.putExtra("username", currentUser);
             startActivity(profileIntent);
         }
         if(view == helpButton){

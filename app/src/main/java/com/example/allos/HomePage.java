@@ -31,6 +31,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     ImageView scanButton;
     ImageView profileButton;
 
+    String currentUser;
+
     ScanController scanController;
 
     DatabaseReference database;
@@ -60,10 +62,14 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         profileButton.setOnClickListener(this);
 
         scanController = new ScanController();
+
+        currentUser = getIntent().getStringExtra("username").toString();
     }
 
     @Override
     public void onClick(View view) {
+
+        // todo: bikin navbar jadi master
 
         if(view == scanButton){
 //            Intent homeIntent = new Intent(this, ScanPage.class);
@@ -79,6 +85,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         if(view == profileButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currentUser);
             startActivity(profileIntent);
         }
     }

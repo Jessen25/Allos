@@ -52,6 +52,8 @@ public class RegisterPage1 extends AppCompatActivity implements View.OnClickList
 
             // todo: KALO BISA PAKE LOOPING JADIIN LOOPING AJA THX LOL
 
+            // todo: bikin login here bekerja
+
             if (checkBox1.isChecked()){
                 allergen.add(checkBox1.getText().toString());
             }  if (checkBox2.isChecked()){
