@@ -1,5 +1,6 @@
 package com.example.allos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 //import com.google.zxing.integration.android.IntentIntegrator;
 //import com.google.zxing.integration.android.IntentResult;
 
@@ -27,6 +33,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
     ScanController scanController;
 
+    DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +43,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         itemList = new ArrayList<>();
         itemList.add(new Items("bengbeng","Beng-Beng",true));
         itemList.add(new Items("piattos","Piattos",false));
+
+        readData();
 
         itemListView = findViewById(R.id.itemListView);
 
@@ -71,6 +81,40 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             Intent profileIntent = new Intent(this, ProfilePage.class);
             startActivity(profileIntent);
         }
+    }
+
+    private void readData(){
+
+        database = FirebaseDatabase.getInstance().getReference("Product");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    itemList.clear();
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        // Assuming each child node represents an item in the list
+                        String barcodeId = dataSnapshot.getKey();
+                        String ProductImage = String.valueOf(dataSnapshot.child("ProductImage").getValue());
+                        String ProductName = String.valueOf(dataSnapshot.child("ProductName").getValue());
+                        boolean itemStatus = (boolean) dataSnapshot.child("ProductAllowed").getValue();
+
+                        Items item = new Items(ProductImage, ProductName, itemStatus);
+                        itemList.add(item);
+                    }
+
+                    ((ItemAdapter) itemListView.getAdapter()).notifyDataSetChanged();
+                }else{
+                    Toast.makeText(HomePage.this, "product doesnt exist", Toast.LENGTH_SHORT).show();
+//                    passEdit.setText("user doesnt exist");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomePage.this, "failed to read data", Toast.LENGTH_SHORT).show();
+//                passEdit.setText("failed");
+            }
+        });
     }
 
     // jgn dihapus dulu in case error
