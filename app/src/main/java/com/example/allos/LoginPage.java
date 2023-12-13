@@ -42,15 +42,17 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v == loginButton){
-//            String username = userEdit.getText().toString();
-//            if(!username.isEmpty()){
-//                readData(username);
-//            }else{
-//                passEdit.setText("Fail");
-//            }
+            String username = userEdit.getText().toString();
+            if(!username.isEmpty()){
+                readData(username);
+                Intent intent = new Intent(this, HomePage.class);
+                startActivity(intent);
+            }else{
+                passEdit.setText("Fail");
+            }
 
-            database = FirebaseDatabase.getInstance().getReference("anjing");
-            database.setValue("Testing4");
+//            database = FirebaseDatabase.getInstance().getReference("anjing");
+//            database.setValue("Testing4");
         }
     }
 
