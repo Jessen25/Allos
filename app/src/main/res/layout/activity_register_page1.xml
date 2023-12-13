@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:text="Welcome to Allos! Please complete the registration and dive in to a world of allergy free"
             android:textAlignment="center"
-            android:textSize="45px"
-            android:textColor="#9586A8"/>
+            android:textColor="#9586A8"
+            android:textSize="45px" />
 
         <ScrollView
             android:layout_width="500px"
@@ -52,50 +52,59 @@
                 android:orientation="vertical">
 
                 <CheckBox
+                    android:id="@+id/checkbox1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DBD8DD"
                     android:text="Milk" />
 
                 <CheckBox
+                    android:id="@+id/checkbox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Eggs" />
 
                 <CheckBox
+                    android:id="@+id/checkbox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DBD8DD"
                     android:text="Fish" />
 
                 <CheckBox
+                    android:id="@+id/checkbox4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Peanut" />
 
                 <CheckBox
+                    android:id="@+id/checkbox5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DBD8DD"
                     android:text="Soybean" />
 
                 <CheckBox
+                    android:id="@+id/checkbox6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Shellfish" />
 
                 <CheckBox
+                    android:id="@+id/checkbox7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DBD8DD"
                     android:text="Wheat" />
 
                 <CheckBox
+                    android:id="@+id/checkbox8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sesame" />
 
                 <CheckBox
+                    android:id="@+id/checkbox9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DBD8DD"
@@ -108,10 +117,9 @@
             android:id="@+id/registerButton"
             android:layout_width="700px"
             android:layout_height="wrap_content"
-            android:text="Register"
             android:layout_margin="50px"
             android:backgroundTint="#0BCE83"
-            />
+            android:text="Register" />
 
         <TextView
             android:layout_width="wrap_content"

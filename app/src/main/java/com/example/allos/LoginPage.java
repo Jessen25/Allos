@@ -50,7 +50,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             if(!username.isEmpty() && !password.isEmpty()){
                 readData(username, password);
             }else{
-                passEdit.setText("Fail");
+                Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -64,19 +64,19 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                 if(snapshot.exists()){
                     String databasePass = String.valueOf(snapshot.child("UserPassword").getValue());
                     if (databasePass.equals(password)){
-                        // TODO: passing intent dengan parameter usernya
                         Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
+                        Intent homeIntent = new Intent(LoginPage.this, HomePage.class);
+                        homeIntent.putExtra("username", username);
+                        startActivity(homeIntent);
                     } else {
                         Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
-                    passEdit.setText("user doesnt exist");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                passEdit.setText("failed");
                 Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
