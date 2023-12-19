@@ -55,14 +55,14 @@
     <ListView
         android:id="@+id/itemListView"
         android:layout_width="317dp"
-        android:layout_height="546dp"
+        android:layout_height="450dp"
         android:divider="#EFE2FF"
         android:dividerHeight="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView2"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintVertical_bias="0.143" />
 
     <SearchView
         android:id="@+id/searchView2"
@@ -80,6 +80,7 @@
         app:layout_constraintVertical_bias="0.133" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/navbar_bg"
