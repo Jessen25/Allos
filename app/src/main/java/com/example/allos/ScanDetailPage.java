@@ -5,8 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class ScanDetailPage extends AppCompatActivity {
+public class ScanDetailPage extends AppCompatActivity{
 
     private String barcodeId;
     private String username;
@@ -34,6 +41,8 @@ public class ScanDetailPage extends AppCompatActivity {
 
         barcodeId = getIntent().getStringExtra("BarcodeId");
         username = getIntent().getStringExtra("username");
+//        username = "Fatih1";
+//        barcodeId = "711844330009";
         productName = findViewById(R.id.productName);
         image = findViewById(R.id.productImage);
         warningText = findViewById(R.id.warningText);
@@ -68,32 +77,75 @@ public class ScanDetailPage extends AppCompatActivity {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     String name = String.valueOf(snapshot.child("Name").getValue());
                     String image = String.valueOf(snapshot.child("Image").getValue());
                     productName.setText(name);
-                    listIngredient.setText("List of Ingridients: \n");
-                    suspectIngridientList.setText("List of Suspected\nIngredients: \n");
-                    String text = "";
-                    String text2 = "";
+
+                    SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+                    SpannableStringBuilder originalListBuilder = new SpannableStringBuilder();
+                    SpannableStringBuilder warningListBuilder = new SpannableStringBuilder();
+
                     int index = 1;
-                    int index2 = 1;
-                    for(DataSnapshot snap: snapshot.child("Ingredient").getChildren()){
+
+                    for (DataSnapshot snap : snapshot.child("Ingredient").getChildren()) {
                         String ingredient = snap.getValue().toString();
-                        text += index + ". " + ingredient + "\n";
-                        if (allergenList.containsKey(ingredient) == true){
-                            text2 += index2 + ". " + ingredient + "\n";
-                            index2++;
+                        String text = index + ". " + ingredient + "\n";
+                        String text2 = ", " + ingredient ;
+
+                        originalListBuilder.append(text);
+
+                        if (allergenList.containsKey(ingredient)) {
+                            spannableStringBuilder.append(text);
+                            warningListBuilder.append(text2);
+
+                            ClickableSpan clickableSpan = createClickableSpan(ingredient, index);
+
+                            int startIndex = spannableStringBuilder.length() - text.length();
+                            int endIndex = spannableStringBuilder.length() - 1;
+                            spannableStringBuilder.setSpan(clickableSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         }
+
                         index++;
-                        listIngredientDetail.setText(text);
-                        suspectIngridientListDetail.setText(text2);
                     }
-                    if (index2 == 1){
-                        suspectIngridientList.setText("No suspected ingredients");
+
+                    listIngredient.setText("List of Ingredients: \n");
+                    listIngredientDetail.setText(originalListBuilder);
+
+                    suspectIngridientList.setText("Dangerous Ingredients: \n");
+
+
+                    if(spannableStringBuilder.length() == 0){
+                        warningText.setText("This product is SAFE to consume");
+                        suspectIngridientListDetail.setText("None");
+                    } else {
+                        warningText.setText("WARNING this product can trigger your allergy,\nit contains");
+                        warningText.setTextColor(Color.RED);
+                        warningText.append(warningListBuilder);
+                        suspectIngridientListDetail.setText(spannableStringBuilder);
+                        suspectIngridientListDetail.setMovementMethod(LinkMovementMethod.getInstance());
+                        suspectIngridientListDetail.setTextColor(Color.RED);
                     }
-                    suspectIngridientListDetail.setTextColor(Color.RED);
+
+
                 }
+            }
+
+            private ClickableSpan createClickableSpan(final String ingredient, final int index) {
+                return new ClickableSpan() {
+                    @Override
+                    public void onClick(@NonNull View view) {
+                        handleSuspectedIngredientClick(ingredient, index);
+                    }
+                };
+            }
+
+            private void handleSuspectedIngredientClick(String ingredient, int index) {
+                Toast.makeText(ScanDetailPage.this, ingredient, Toast.LENGTH_SHORT).show();
+
+//                Intent dangerousItemDetail = new Intent(this, dangerousItemDetail.class);
+//                dangerousItemDetail.putExtra("ingredientName", ingredient);
+//                startActivity(dangerousItemDetail);
             }
 
             @Override
@@ -103,5 +155,4 @@ public class ScanDetailPage extends AppCompatActivity {
         });
 
     }
-
 }
