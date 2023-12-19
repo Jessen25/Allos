@@ -22,6 +22,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
@@ -35,7 +36,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
     ScanController scanController;
 
-    DatabaseReference database;
+    DatabaseReference database, allergenDBList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_home_page);
 
         itemList = new ArrayList<>();
-        itemList.add(new Items("bengbeng","Beng-Beng",true));
-        itemList.add(new Items("piattos","Piattos",false));
+//        itemList.add(new Items("123123123", "bengbeng","Beng-Beng",true));
+//        itemList.add(new Items("123123123", "piattos","Piattos",false));
 
-//        readData();
+        readData();
 
         itemListView = findViewById(R.id.itemListView);
 
@@ -91,6 +92,25 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     private void readData(){
 
         database = FirebaseDatabase.getInstance().getReference("Product");
+        allergenDBList = FirebaseDatabase.getInstance().getReference("Allergen").child("Jessen1");
+
+        HashMap<String, Boolean> allergenList = new HashMap<>();
+
+        allergenDBList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot snap: snapshot.getChildren()) {
+                        allergenList.put(snap.getValue().toString(), true);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,12 +119,18 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         // Assuming each child node represents an item in the list
-                        String barcodeId = dataSnapshot.getKey();
-                        String ProductImage = String.valueOf(dataSnapshot.child("ProductImage").getValue());
-                        String ProductName = String.valueOf(dataSnapshot.child("ProductName").getValue());
-                        boolean itemStatus = (boolean) dataSnapshot.child("ProductAllowed").getValue();
+                        String barcodeId = "123123123";
+                        String ProductImage = String.valueOf(dataSnapshot.child("Image").getValue());
+                        String ProductName = String.valueOf(dataSnapshot.child("Name").getValue());
+                        boolean itemStatus = true;
+                        for(DataSnapshot snap: dataSnapshot.child("Ingredient").getChildren()){
+                            String ingredient = snap.getValue().toString();
+                            if (allergenList.containsKey(ingredient)){
+                                itemStatus = false;
+                            }
+                        }
 
-                        Items item = new Items(ProductImage, ProductName, itemStatus);
+                        Items item = new Items(barcodeId, ProductImage, ProductName, itemStatus);
                         itemList.add(item);
                     }
 
