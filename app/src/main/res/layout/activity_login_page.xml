@@ -44,6 +44,7 @@
             android:id="@+id/usernameEdit"
             android:layout_width="800px"
             android:layout_height="100px"
+            android:singleLine="true"
             android:background="#DBD8DD"
             android:layout_marginBottom="100px" />
 
@@ -56,6 +57,7 @@
             android:id="@+id/passEdit"
             android:layout_width="800px"
             android:layout_height="100px"
+            android:singleLine="true"
             android:background="#DBD8DD"
             android:layout_marginBottom="100px"
             android:inputType="textPassword"/>

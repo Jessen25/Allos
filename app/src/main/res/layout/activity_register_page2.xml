@@ -65,6 +65,7 @@
             android:layout_width="800px"
             android:layout_height="100px"
             android:background="#DBD8DD"
+            android:singleLine="true"
             android:layout_marginBottom="100px" />
 
         <TextView
@@ -75,6 +76,7 @@
         <EditText
             android:id="@+id/usernameEdit"
             android:layout_width="800px"
+            android:singleLine="true"
             android:layout_height="100px"
             android:background="#DBD8DD"
             android:layout_marginBottom="100px"/>
@@ -87,6 +89,7 @@
         <EditText
             android:id="@+id/emailEdit"
             android:layout_width="800px"
+            android:singleLine="true"
             android:layout_height="100px"
             android:background="#DBD8DD"
             android:layout_marginBottom="100px"/>
@@ -100,6 +103,7 @@
             android:id="@+id/passwordEdit"
             android:layout_width="800px"
             android:layout_height="100px"
+            android:singleLine="true"
             android:background="#DBD8DD"
             android:layout_marginBottom="100px"
             android:isCredential="true"
@@ -115,6 +119,4 @@
             />
 
     </LinearLayout>
-
-
 </LinearLayout>

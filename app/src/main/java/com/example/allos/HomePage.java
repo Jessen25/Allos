@@ -69,8 +69,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        // todo: bikin navbar jadi master
-
         if(view == scanButton){
 //            Intent homeIntent = new Intent(this, ScanPage.class);
 //            startActivity(homeIntent);
@@ -129,6 +127,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result != null){
             if(result.getContents() != null){
+
+                // pindah page
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(result.getContents());
                 builder.setTitle("Scanning Result");
