@@ -32,10 +32,8 @@ public class ScanDetailPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_detail_page);
 
-//        barcodeId = getIntent().getStringExtra("Barcode");
-//        username = getIntent().getStringExtra("Username");
-        username = "Fatih1";
-        barcodeId = "711844330009";
+        barcodeId = getIntent().getStringExtra("BarcodeId");
+        username = getIntent().getStringExtra("username");
         productName = findViewById(R.id.productName);
         image = findViewById(R.id.productImage);
         warningText = findViewById(R.id.warningText);

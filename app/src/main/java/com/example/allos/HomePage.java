@@ -127,8 +127,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result != null){
             if(result.getContents() != null){
-
-                // pindah page
+                Intent scanDetailIntent = new Intent(this, ScanDetailPage.class);
+                scanDetailIntent.putExtra("BarcodeId", result.getContents());
+                scanDetailIntent.putExtra("username", currentUser);
+                startActivity(scanDetailIntent);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(result.getContents());
                 builder.setTitle("Scanning Result");
