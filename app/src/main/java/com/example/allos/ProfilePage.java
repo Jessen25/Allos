@@ -68,7 +68,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
 
         scanController = new ScanController();
 
-        currentUser = getIntent().getStringExtra("username").toString();
+        currentUser = getIntent().getStringExtra("username");
 
         setProfile();
 
@@ -122,6 +122,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         if(view == homeButton){
             Intent homeIntent = new Intent(this, HomePage.class);
+            homeIntent.putExtra("username", currentUser);
             startActivity(homeIntent);
         }
         if(view == scanButton){

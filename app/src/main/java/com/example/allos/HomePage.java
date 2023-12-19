@@ -43,11 +43,13 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        currentUser = getIntent().getStringExtra("username");
+
         itemList = new ArrayList<>();
 //        itemList.add(new Items("123123123", "bengbeng","Beng-Beng",true));
 //        itemList.add(new Items("123123123", "piattos","Piattos",false));
 
-        readData();
+        readData(currentUser);
 
         itemListView = findViewById(R.id.itemListView);
 
@@ -64,22 +66,14 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         scanController = new ScanController();
 
-        currentUser = getIntent().getStringExtra("username").toString();
+
     }
 
     @Override
     public void onClick(View view) {
 
         if(view == scanButton){
-//            Intent homeIntent = new Intent(this, ScanPage.class);
-//            startActivity(homeIntent);
             scanController.scanCode(this);
-
-//            int requestCode = Integer.parseInt(null);
-//            int resultCode = Integer.parseInt(null);
-//            Intent data = null;
-//            scanController.onActivityResult
-//                    (requestCode, resultCode, data, this, this);
         }
 
         if(view == profileButton){
@@ -89,10 +83,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void readData(){
+    private void readData(String username){
 
         database = FirebaseDatabase.getInstance().getReference("Product");
-        allergenDBList = FirebaseDatabase.getInstance().getReference("Allergen").child("Jessen1");
+
+        allergenDBList = FirebaseDatabase.getInstance().getReference("Allergen").child(username);
 
         HashMap<String, Boolean> allergenList = new HashMap<>();
 
@@ -119,7 +114,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         // Assuming each child node represents an item in the list
-                        String barcodeId = "123123123";
+                        String barcodeId = String.valueOf(dataSnapshot.child("BarcodeID").getValue());
                         String ProductImage = String.valueOf(dataSnapshot.child("Image").getValue());
                         String ProductName = String.valueOf(dataSnapshot.child("Name").getValue());
                         boolean itemStatus = true;
@@ -137,13 +132,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                     ((ItemAdapter) itemListView.getAdapter()).notifyDataSetChanged();
                 }else{
                     Toast.makeText(HomePage.this, "product doesnt exist", Toast.LENGTH_SHORT).show();
-//                    passEdit.setText("user doesnt exist");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(HomePage.this, "failed to read data", Toast.LENGTH_SHORT).show();
-//                passEdit.setText("failed");
             }
         });
     }
@@ -166,13 +159,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                         scanController.scanCode(HomePage.this);
                     }
                 });
-//                        setNegativeButton("Finish", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // do an intent back to home page
-//                        finish();
-//                    }
-//                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
