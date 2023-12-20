@@ -41,13 +41,9 @@ public class UserController {
         return true;
     }
 
-    public static String validateUpdateProfile(String name, String username, String email) {
+    public static String validateUpdateProfile(String name, String email) {
         if (name.isEmpty()){
             return "name";
-        } if (username.isEmpty()){
-            return "username";
-        }if (!isAlphaNumeric(username)){
-            return "alphanumeric";
         }if (email.isEmpty()) {
             return "email";
         }

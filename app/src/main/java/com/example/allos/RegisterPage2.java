@@ -88,6 +88,5 @@ public class RegisterPage2 extends AppCompatActivity implements View.OnClickList
         database.child(username).child("UserPassword").setValue(password);
         database.child(username).child("Username").setValue(username);
         database.child(username).child("UserEmail").setValue(email);
-
     }
 }
