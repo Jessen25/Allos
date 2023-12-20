@@ -59,8 +59,15 @@
             android:layout_height="100px"
             android:singleLine="true"
             android:background="#DBD8DD"
-            android:layout_marginBottom="100px"
+            android:layout_marginBottom="10px"
             android:inputType="textPassword"/>
+
+        <TextView
+            android:id="@+id/errorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark" />
 
         <Button
             android:id="@+id/loginButton"

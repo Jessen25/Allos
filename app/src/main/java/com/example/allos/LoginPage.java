@@ -5,30 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.allos.controllers.UserController;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginPage extends AppCompatActivity implements View.OnClickListener{
 
-    Button loginButton;
-    EditText userEdit, passEdit;
-    DatabaseReference database;
-
-    TextView registerText;
+    private Button loginButton;
+    private EditText userEdit, passEdit;
+    private DatabaseReference database;
+    private TextView registerText, errorMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +34,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         userEdit = findViewById(R.id.usernameEdit);
         passEdit = findViewById(R.id.passEdit);
         registerText = findViewById(R.id.registerText);
+        errorMsg = findViewById(R.id.errorMsg);
 
         loginButton.setOnClickListener(this);
         registerText.setOnClickListener(this);
@@ -48,14 +44,21 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v == loginButton){
-            // TODO: 13/12/2023 bikin controller check user login contoh if empty dan lain lain;
             String username = userEdit.getText().toString();
             String password = passEdit.getText().toString();
 
-            if(!username.isEmpty() && !password.isEmpty()){
+            String validate = UserController.validateLoginUser(username, password);
+            if (validate.equals("username")){
+                errorMsg.setText("Username must not be empty");
+            }
+            if (validate.equals("alphanumeric")){
+                errorMsg.setText("Username must only contain Alphabet or Numeric");
+            }
+            if (validate.equals("password")){
+                errorMsg.setText("Password must not be empty");
+            }
+            if (validate.equals("success")){
                 readData(username, password);
-            }else{
-                Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -74,21 +77,20 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                 if(snapshot.exists()){
                     String databasePass = String.valueOf(snapshot.child("UserPassword").getValue());
                     if (databasePass.equals(password)){
-                        Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent homeIntent = new Intent(LoginPage.this, HomePage.class);
                         homeIntent.putExtra("username", username);
                         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(homeIntent);
                     } else {
-                        Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
+                        errorMsg.setText("Password is incorrect");
                     }
                 }else{
-                    Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
+                    errorMsg.setText("Username not found");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(LoginPage.this, "Failed", Toast.LENGTH_SHORT).show();
+                errorMsg.setText("Database error");
             }
         });
     }

@@ -24,20 +24,20 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class ProfilePage extends AppCompatActivity implements View.OnClickListener{
 
-    String currentUser;
-    ImageView exitButton;
-    LinearLayout editProfileButton;
-    LinearLayout helpButton;
-    LinearLayout privacyPolicyButton;
-    LinearLayout termOfServiceButton;
-    LinearLayout rateAppButton;
-    ImageView homeButton;
-    ImageView scanButton;
-    ImageView profileButton;
-    TextView profileText;
-    TextView emailText;
+    private String currentUser;
+    private ImageView exitButton;
+    private LinearLayout editProfileButton;
+    private LinearLayout helpButton;
+    private LinearLayout privacyPolicyButton;
+    private LinearLayout termOfServiceButton;
+    private LinearLayout rateAppButton;
+    private ImageView homeButton;
+    private ImageView scanButton;
+    private ImageView profileButton;
+    private TextView profileText;
+    private TextView emailText;
 
-    ScanController scanController;
+    private ScanController scanController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,8 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    profileText.setText("Hello, " + snapshot.child("Name").getValue().toString());
+                    String profile = "Hello, " + snapshot.child("Name").getValue().toString();
+                    profileText.setText(profile);
                     emailText.setText("@" + snapshot.child("Username").getValue().toString());
                 }
             }
@@ -130,6 +131,7 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         if(view == profileButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currentUser);
             startActivity(profileIntent);
         }
     }
