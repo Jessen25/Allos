@@ -7,18 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.example.allos.controllers.UserController;
 import java.util.ArrayList;
 
 public class RegisterPage2 extends AppCompatActivity implements View.OnClickListener {
 
-    public ArrayList<String> allergen;
-    Button regButton;
-    EditText nameEdit, usernameEdit, emailEdit, passwordEdit;
+    private ArrayList<String> allergen;
+    private Button regButton;
+    private EditText nameEdit, usernameEdit, emailEdit, passwordEdit;
+    private TextView errorMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class RegisterPage2 extends AppCompatActivity implements View.OnClickList
         usernameEdit = findViewById(R.id.usernameEdit);
         emailEdit = findViewById(R.id.emailEdit);
         passwordEdit = findViewById(R.id.passwordEdit);
+        errorMsg = findViewById(R.id.errorMsg);
 
         allergen = getIntent().getStringArrayListExtra("allergens");
     }
@@ -44,22 +47,38 @@ public class RegisterPage2 extends AppCompatActivity implements View.OnClickList
             String email = emailEdit.getText().toString();
             String password = passwordEdit.getText().toString();
 
-            //todo: bikin controller buat validasi
+            String validate = UserController.validateRegisterUser(name, username, email, password);
+            if (validate.equals("name")){
+                errorMsg.setText("Name must not be empty");
+            }
+            if (validate.equals("username")){
+                errorMsg.setText("Username must not be empty");
+            }
+            if (validate.equals("alphanumeric")){
+                errorMsg.setText("Username must only contain Alphabet or Numeric");
+            }
+            if (validate.equals("email")){
+                errorMsg.setText("Email must not be empty");
+            }
+            if (validate.equals("password")){
+                errorMsg.setText("Password must not be empty");
+            }
 
-            insertNewUser(name, username, email, password);
-            // todo: validasi name dan lain lain gaboleh pake titik
-            insertNewAllergen(username);
-
-            // todo: bikin validasi kalo bener bener registnya kaga failed
-            Intent loginIntent = new Intent(this, LoginPage.class);
-            startActivity(loginIntent);
+            if (validate.equals("success")){
+                insertNewUser(name, username, email, password);
+                insertNewAllergen(username);
+                Intent loginIntent = new Intent(this, LoginPage.class);
+                startActivity(loginIntent);
+            }
         }
     }
 
     public void insertNewAllergen(String username) {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Allergen");
+        Integer index = 1;
         for (String aller: allergen) {
-            database.child(username).child(aller).setValue(true);
+            database.child(username).child(index.toString()).setValue(aller);
+            index++;
         }
     }
 
