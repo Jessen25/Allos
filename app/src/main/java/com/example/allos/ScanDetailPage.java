@@ -80,7 +80,7 @@ public class ScanDetailPage extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String name = String.valueOf(snapshot.child("Name").getValue());
-                    String image = String.valueOf(snapshot.child("Image").getValue());
+                    String imageName = String.valueOf(snapshot.child("Image").getValue());
                     productName.setText(name);
 
                     SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
@@ -108,6 +108,11 @@ public class ScanDetailPage extends AppCompatActivity{
                         }
 
                         index++;
+                    }
+
+                    int drawableResourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+                    if (drawableResourceId != 0) {
+                        image.setImageResource(drawableResourceId);
                     }
 
                     listIngredient.setText("List of Ingredients: \n");
@@ -142,8 +147,6 @@ public class ScanDetailPage extends AppCompatActivity{
             }
 
             private void handleSuspectedIngredientClick(String ingredient, int index) {
-                Toast.makeText(ScanDetailPage.this, ingredient, Toast.LENGTH_SHORT).show();
-
                 Intent dangerousItemDetail = new Intent(ScanDetailPage.this, AllergenDetailPage.class);
                 dangerousItemDetail.putExtra("ingredientName", ingredient);
                 startActivity(dangerousItemDetail);
