@@ -12,6 +12,7 @@ public class PrivacyPage extends AppCompatActivity implements View.OnClickListen
 
     private ImageView backButton;
     private TextView textView;
+    private String currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class PrivacyPage extends AppCompatActivity implements View.OnClickListen
 
         backButton = findViewById(R.id.backButton);
         textView = findViewById(R.id.textView);
+        currUser = getIntent().getStringExtra("username");
 
         textView.setText("1. Introduction\n" +
                 "\n" +
@@ -75,6 +77,7 @@ public class PrivacyPage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         if(view == backButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currUser);
             startActivity(profileIntent);
         }
     }

@@ -107,18 +107,22 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         }
         if(view == helpButton){
             Intent helpIntent = new Intent(this, HelpPage.class);
+            helpIntent.putExtra("username", currentUser);
             startActivity(helpIntent);
         }
         if(view == privacyPolicyButton){
             Intent privacyIntent = new Intent(this, PrivacyPage.class);
+            privacyIntent.putExtra("username", currentUser);
             startActivity(privacyIntent);
         }
         if(view == termOfServiceButton){
             Intent termIntent = new Intent(this, TermPage.class);
+            termIntent.putExtra("username", currentUser);
             startActivity(termIntent);
         }
         if(view == rateAppButton){
             Intent rateIntent = new Intent(this, RatePage.class);
+            rateIntent.putExtra("username", currentUser);
             startActivity(rateIntent);
         }
         if(view == homeButton){

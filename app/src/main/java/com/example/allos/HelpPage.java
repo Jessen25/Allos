@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 public class HelpPage extends AppCompatActivity implements View.OnClickListener{
 
-    ImageView backButton;
-    TextView textView;
+    private ImageView backButton;
+    private TextView textView;
+    private String currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener{
 
         backButton = findViewById(R.id.backButton);
         textView = findViewById(R.id.textView);
+        currUser = getIntent().getStringExtra("username");
 
         textView.setText
                 (
@@ -63,6 +65,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         if(view == backButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currUser);
             startActivity(profileIntent);
         }
     }

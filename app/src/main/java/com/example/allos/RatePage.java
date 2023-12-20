@@ -12,6 +12,7 @@ public class RatePage extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView backButton;
     private TextView textView;
+    private String currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class RatePage extends AppCompatActivity implements View.OnClickListener{
 
         backButton = findViewById(R.id.backButton);
         textView = findViewById(R.id.textView);
+        currUser = getIntent().getStringExtra("username");
 
         textView.setText("Thank you for choosing Allos! We value your feedback, and your opinion matters to us. If you enjoy using Allos, please take a moment to rate and review the app. Your feedback helps us improve and enhances the experience for everyone.\n" +
                 "\n" +
@@ -56,6 +58,7 @@ public class RatePage extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         if(view == backButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currUser);
             startActivity(profileIntent);
         }
     }

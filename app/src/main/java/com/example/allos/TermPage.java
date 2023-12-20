@@ -12,6 +12,7 @@ public class TermPage extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView backButton;
     private TextView textView;
+    private String currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class TermPage extends AppCompatActivity implements View.OnClickListener{
 
         backButton = findViewById(R.id.backButton);
         textView = findViewById(R.id.textView);
+        currUser = getIntent().getStringExtra("username");
 
         textView.setText("1. Acceptance of Terms\n" +
                 "\n" +
@@ -73,6 +75,7 @@ public class TermPage extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         if(view == backButton){
             Intent profileIntent = new Intent(this, ProfilePage.class);
+            profileIntent.putExtra("username", currUser);
             startActivity(profileIntent);
         }
     }
