@@ -75,7 +75,8 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
             String name = nameText.getText().toString();
             String email = emailText.getText().toString();
 
-            String validate = UserController.validateUpdateProfile(name, email);
+            String validate = "false";
+            validate = UserController.validateUpdateProfile(name, email);
             if (validate.equals("name")){
                 errorMsg.setText("Name must not be empty");
             }

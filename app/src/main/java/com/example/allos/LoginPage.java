@@ -47,7 +47,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             String username = userEdit.getText().toString();
             String password = passEdit.getText().toString();
 
-            String validate = UserController.validateLoginUser(username, password);
+            String validate = "false";
+            validate = UserController.validateLoginUser(username, password);
             if (validate.equals("username")){
                 errorMsg.setText("Username must not be empty");
             }
