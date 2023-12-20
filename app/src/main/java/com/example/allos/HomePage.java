@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
@@ -22,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,8 +32,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     ImageView homeButton;
     ImageView scanButton;
     ImageView profileButton;
-    String currentUser;
+
+    String currentUser, barcodeId;
+    ArrayList<String> barcodeIdList = new ArrayList<>();
+
     ScanController scanController;
+
     DatabaseReference database, allergenDBList;
 
     @Override
@@ -44,6 +48,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         currentUser = getIntent().getStringExtra("username");
 
         itemList = new ArrayList<>();
+//        itemList.add(new Items("123123123", "bengbeng","Beng-Beng",true));
+//        itemList.add(new Items("123123123", "piattos","Piattos",false));
 
         readData(currentUser);
 
@@ -62,6 +68,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         scanController = new ScanController();
 
+//        itemListClicked();
     }
 
     @Override
@@ -109,7 +116,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         // Assuming each child node represents an item in the list
-                        String barcodeId = String.valueOf(dataSnapshot.child("BarcodeID").getValue());
+                        // barcodeId buat dapetin jumlah data di db buat jadi posisi listview
+                        barcodeId = String.valueOf(dataSnapshot.child("BarcodeID").getValue());
                         String ProductImage = String.valueOf(dataSnapshot.child("Image").getValue());
                         String ProductName = String.valueOf(dataSnapshot.child("Name").getValue());
                         boolean itemStatus = true;
@@ -122,9 +130,17 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
                         Items item = new Items(barcodeId, ProductImage, ProductName, itemStatus);
                         itemList.add(item);
+                        barcodeIdList.add(barcodeId);
+
+                        itemListView.setOnItemClickListener((parent, view, position, id) -> {
+                            Items clickedItem = itemList.get(position);
+                            itemListClicked(clickedItem.barcodeID);
+                        });
                     }
 
                     ((ItemAdapter) itemListView.getAdapter()).notifyDataSetChanged();
+
+
                 }else{
                     Toast.makeText(HomePage.this, "product doesnt exist", Toast.LENGTH_SHORT).show();
                 }
@@ -145,20 +161,20 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 scanDetailIntent.putExtra("BarcodeId", result.getContents());
                 scanDetailIntent.putExtra("username", currentUser);
                 startActivity(scanDetailIntent);
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setMessage(result.getContents());
-//                builder.setTitle("Scanning Result");
-//                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        scanController.scanCode(HomePage.this);
-//                    }
-//                });
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(result.getContents());
+                builder.setTitle("Scanning Result");
+                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        scanController.scanCode(HomePage.this);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
             else{
-//                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
             }
         }
         else{
@@ -166,4 +182,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    public void itemListClicked(String barcodeId){
+//        Toast.makeText(this, "123123123", Toast.LENGTH_SHORT).show();
+        Intent scanDetailIntent = new Intent(this, ScanDetailPage.class);
+
+        scanDetailIntent.putExtra("BarcodeId", barcodeId);
+        scanDetailIntent.putExtra("username", currentUser);
+        startActivity(scanDetailIntent);
+    }
 }
