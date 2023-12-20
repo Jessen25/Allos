@@ -12,7 +12,7 @@
         android:layout_height="200px"
         android:gravity="center"
         android:text="allos."
-        android:textColor="@color/black"
+        android:textColor="#833EDB"
         android:textSize="90px"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

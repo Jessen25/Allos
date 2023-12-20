@@ -3,6 +3,7 @@ package com.example.allos;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -143,9 +144,9 @@ public class ScanDetailPage extends AppCompatActivity{
             private void handleSuspectedIngredientClick(String ingredient, int index) {
                 Toast.makeText(ScanDetailPage.this, ingredient, Toast.LENGTH_SHORT).show();
 
-//                Intent dangerousItemDetail = new Intent(this, dangerousItemDetail.class);
-//                dangerousItemDetail.putExtra("ingredientName", ingredient);
-//                startActivity(dangerousItemDetail);
+                Intent dangerousItemDetail = new Intent(ScanDetailPage.this, AllergenDetailPage.class);
+                dangerousItemDetail.putExtra("ingredientName", ingredient);
+                startActivity(dangerousItemDetail);
             }
 
             @Override
