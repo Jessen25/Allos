@@ -31,11 +31,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     ImageView homeButton;
     ImageView scanButton;
     ImageView profileButton;
-
     String currentUser;
-
     ScanController scanController;
-
     DatabaseReference database, allergenDBList;
 
     @Override
