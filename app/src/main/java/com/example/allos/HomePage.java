@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
@@ -43,8 +44,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         currentUser = getIntent().getStringExtra("username");
 
         itemList = new ArrayList<>();
-//        itemList.add(new Items("123123123", "bengbeng","Beng-Beng",true));
-//        itemList.add(new Items("123123123", "piattos","Piattos",false));
 
         readData(currentUser);
 
@@ -62,7 +61,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         profileButton.setOnClickListener(this);
 
         scanController = new ScanController();
-
 
     }
 
@@ -147,24 +145,25 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 scanDetailIntent.putExtra("BarcodeId", result.getContents());
                 scanDetailIntent.putExtra("username", currentUser);
                 startActivity(scanDetailIntent);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanController.scanCode(HomePage.this);
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(result.getContents());
+//                builder.setTitle("Scanning Result");
+//                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        scanController.scanCode(HomePage.this);
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
             else{
-                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
             }
         }
         else{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 }

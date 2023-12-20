@@ -150,27 +150,31 @@ public class ProfilePage extends AppCompatActivity implements View.OnClickListen
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result != null){
             if(result.getContents() != null){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        scanController.scanCode(ProfilePage.this);
-                    }
-                });
-//                        setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+                Intent scanDetailIntent = new Intent(this, ScanDetailPage.class);
+                scanDetailIntent.putExtra("BarcodeId", result.getContents());
+                scanDetailIntent.putExtra("username", currentUser);
+                startActivity(scanDetailIntent);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(result.getContents());
+//                builder.setTitle("Scanning Result");
+//                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
+//
+//                        scanController.scanCode(ProfilePage.this);
 //                    }
 //                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+////                        setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+////                    @Override
+////                    public void onClick(DialogInterface dialog, int which) {
+////                        finish();
+////                    }
+////                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
             else{
-                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
             }
         }
         else{

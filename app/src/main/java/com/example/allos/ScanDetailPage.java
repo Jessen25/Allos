@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -123,7 +124,9 @@ public class ScanDetailPage extends AppCompatActivity{
 
                     if(spannableStringBuilder.length() == 0){
                         warningText.setText("This product is SAFE to consume");
+                        warningText.setTextColor(Color.GREEN);
                         suspectIngridientListDetail.setText("None");
+                        suspectIngridientListDetail.setTextColor(Color.GREEN);
                     } else {
                         warningText.setText("WARNING this product can trigger your allergy,\nit contains");
                         warningText.setTextColor(Color.RED);

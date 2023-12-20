@@ -61,11 +61,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView2"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintVertical_bias="0.143" />
 
     <SearchView
-        android:id="@+id/searchView2"
+        android:id="@+id/searchBar"
         android:layout_width="329dp"
         android:layout_height="34dp"
         android:layout_marginTop="2dp"
