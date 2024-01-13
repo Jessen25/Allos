@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Allos</string>
+    <string name="don_t_have_">
+                Don\u00e2\u0080\u0099t have an account? Sign Up
+            </string>
 </resources>

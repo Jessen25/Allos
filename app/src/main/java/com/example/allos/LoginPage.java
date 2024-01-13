@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.allos.controllers.UserController;
@@ -34,10 +39,22 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         userEdit = findViewById(R.id.usernameEdit);
         passEdit = findViewById(R.id.passEdit);
         registerText = findViewById(R.id.registerText);
+
+        SpannableString spannableString = new SpannableString("Don't have an account? Sign Up");
+
+        int signUpStartIndex = spannableString.toString().indexOf("Sign Up");
+        int signUpEndIndex = signUpStartIndex + "Sign Up".length();
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#6F12E7")),
+                signUpStartIndex, signUpEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         errorMsg = findViewById(R.id.errorMsg);
+
+
 
         loginButton.setOnClickListener(this);
         registerText.setOnClickListener(this);
+
+        registerText.setText(spannableString);
 
     }
 

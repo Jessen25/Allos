@@ -98,7 +98,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     for (DataSnapshot snap: snapshot.getChildren()) {
-                        allergenList.put(snap.getValue().toString(), true);
+                        allergenList.put(snap.getValue().toString(), false);
                     }
                 }
             }
