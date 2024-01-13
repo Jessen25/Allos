@@ -47,7 +47,8 @@ public class RegisterPage2 extends AppCompatActivity implements View.OnClickList
             String email = emailEdit.getText().toString();
             String password = passwordEdit.getText().toString();
 
-            String validate = UserController.validateRegisterUser(name, username, email, password);
+            String validate = "false";
+            validate = UserController.validateRegisterUser(name, username, email, password);
             if (validate.equals("name")){
                 errorMsg.setText("Name must not be empty");
             }
@@ -63,7 +64,6 @@ public class RegisterPage2 extends AppCompatActivity implements View.OnClickList
             if (validate.equals("password")){
                 errorMsg.setText("Password must not be empty");
             }
-
             if (validate.equals("success")){
                 insertNewUser(name, username, email, password);
                 insertNewAllergen(username);

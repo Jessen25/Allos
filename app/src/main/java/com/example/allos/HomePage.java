@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.allos.controllers.ScanController;
@@ -27,19 +29,19 @@ import java.util.HashMap;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
-    ArrayList<Items> itemList;
-    ListView itemListView;
-    ImageView homeButton;
-    ImageView scanButton;
-    ImageView profileButton;
+    private ArrayList<Items> itemList;
+    private ListView itemListView;
+    private ImageView homeButton;
+    private ImageView scanButton;
+    private ImageView profileButton;
 
-    String currentUser, barcodeId;
-    ArrayList<String> barcodeIdList = new ArrayList<>();
+    private String currentUser, barcodeId;
+    private ArrayList<String> barcodeIdList = new ArrayList<>();
 
-    ScanController scanController;
+    private ScanController scanController;
 
-    DatabaseReference database, allergenDBList;
-
+    private DatabaseReference database, allergenDBList;
+    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +50,29 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         currentUser = getIntent().getStringExtra("username");
 
         itemList = new ArrayList<>();
-//        itemList.add(new Items("123123123", "bengbeng","Beng-Beng",true));
-//        itemList.add(new Items("123123123", "piattos","Piattos",false));
 
         readData(currentUser);
-
+        searchView =  findViewById(R.id.searchBar);
         itemListView = findViewById(R.id.itemListView);
 
         ItemAdapter itemAdapter = new ItemAdapter(this, itemList);
         itemListView.setAdapter(itemAdapter);
+
+        // Set an OnQueryTextListener to handle search actions
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                updateListView(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                updateListView(newText);
+                return false;
+            }
+        });
+
 
         homeButton = findViewById(R.id.homeButton);
         scanButton = findViewById(R.id.scanButton);
@@ -68,7 +84,31 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         scanController = new ScanController();
 
-//        itemListClicked();
+    }
+
+    private void updateListView(String query) {
+
+        if (query == "" || query.isEmpty()){
+            ItemAdapter itemAdapter = new ItemAdapter(this, itemList);
+            itemListView.setAdapter(itemAdapter);
+            ((ItemAdapter) itemListView.getAdapter()).notifyDataSetChanged();
+            return;
+        }
+
+        ArrayList<Items> searchList = new ArrayList<>();
+        for(Items snap: itemList){
+            if (snap.itemName.toLowerCase().contains(query.toLowerCase())){
+                searchList.add(snap);
+            }
+        }
+
+        itemListView.setOnItemClickListener((parent, view, position, id) -> {
+            Items clickedItem = itemList.get(position);
+            itemListClicked(clickedItem.barcodeID);
+        });
+        ItemAdapter itemAdapter = new ItemAdapter(this, searchList);
+        itemListView.setAdapter(itemAdapter);
+        ((ItemAdapter) itemListView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
@@ -161,26 +201,28 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 scanDetailIntent.putExtra("BarcodeId", result.getContents());
                 scanDetailIntent.putExtra("username", currentUser);
                 startActivity(scanDetailIntent);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanController.scanCode(HomePage.this);
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(result.getContents());
+//                builder.setTitle("Scanning Result");
+//                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        scanController.scanCode(HomePage.this);
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
             else{
-                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
             }
         }
         else{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
 
     public void itemListClicked(String barcodeId){
 //        Toast.makeText(this, "123123123", Toast.LENGTH_SHORT).show();
