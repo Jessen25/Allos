@@ -3,7 +3,11 @@ package com.example.allos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -53,7 +57,16 @@ public class RegisterPage1 extends AppCompatActivity implements View.OnClickList
 //        checkBox9 = findViewById(R.id.checkbox9);
 
         loginText = findViewById(R.id.loginText);
+
+        SpannableString spannableString = new SpannableString("Already have an account? Login");
+
+        int loginStartIndex = spannableString.toString().indexOf("Login");
+        int loginEndIndex = loginStartIndex + "Login".length();
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#6F12E7")),
+                loginStartIndex, loginEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         loginText.setOnClickListener(this);
+        loginText.setText(spannableString);
     }
 
     @Override
