@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".RegisterPage1">
+    tools:context=".LoginPage">
 
     <View
         android:id="@+id/ellipse_126"
@@ -45,8 +45,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="100px"
-        android:paddingTop="-160px">
+        android:paddingHorizontal="38dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -54,7 +53,7 @@
             android:layout_marginBottom="20px"
             android:fontFamily="@font/sf_pro_rounded_bold"
             android:text="Login"
-            android:textColor="#000000"
+            android:textColor="@color/header_color"
             android:textSize="90px" />
 
         <TextView
@@ -121,6 +120,10 @@
             android:layout_width="248dp"
             android:layout_height="60dp"
             android:layout_margin="50px"
+            android:layout_marginStart="50px"
+            android:layout_marginTop="50px"
+            android:layout_marginEnd="50px"
+            android:layout_marginBottom="50px"
             android:backgroundTint="@color/main_color"
             android:fontFamily="@font/sf_pro_rounded_semibold"
             android:text="LOGIN"
@@ -143,10 +146,10 @@
         android:id="@+id/bottomButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
         android:paddingHorizontal="100px"
         android:paddingBottom="20dp">
 
@@ -186,31 +189,32 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-<!--            masih proses coba coba -->
-<!--            <Button-->
-<!--                android:layout_width="155dp"-->
-<!--                android:layout_height="57dp"-->
-<!--                android:background="@color/black"-->
-<!--                android:elevation="37.17dp"-->
-<!--                android:text="FACEBOOK"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="14sp"-->
-<!--                android:fontFamily="@font/sf_pro_rounded_medium"-->
-<!--                android:drawableLeft="@drawable/facebook_logo">-->
+            <!--            masih proses coba coba -->
+            <!--            <Button-->
+            <!--                android:layout_width="155dp"-->
+            <!--                android:layout_height="57dp"-->
+            <!--                android:background="@color/black"-->
+            <!--                android:elevation="37.17dp"-->
+            <!--                android:text="FACEBOOK"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="14sp"-->
+            <!--                android:fontFamily="@font/sf_pro_rounded_medium"-->
+            <!--                android:drawableLeft="@drawable/facebook_logo">-->
 
-<!--                <requestFocus />-->
-<!--                <include-->
-<!--                    android:layout_height="110dp"-->
-<!--                    android:layout_width="1dp"-->
-<!--                    layout="@drawable/facebook_logo"/>-->
-<!--            </Button>-->
+            <!--                <requestFocus />-->
+            <!--                <include-->
+            <!--                    android:layout_height="110dp"-->
+            <!--                    android:layout_width="1dp"-->
+            <!--                    layout="@drawable/facebook_logo"/>-->
+            <!--            </Button>-->
 
 
-                        <RelativeLayout
+            <RelativeLayout
                 android:id="@+id/facebookOAuthButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:clickable="true">
 
 
                 <RelativeLayout
@@ -247,7 +251,8 @@
             <RelativeLayout
                 android:id="@+id/googleOAuthButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:clickable="true">
 
                 <RelativeLayout
                     android:layout_width="155dp"
